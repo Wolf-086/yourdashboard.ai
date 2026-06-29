@@ -12,8 +12,8 @@ Supabase Free tier projects enter a 7-day pause after 7 days of inactivity. This
 
 ## Files
 
-`scripts/supabase-keepalive.sh`
-`scripts/supabase-keepalive.bat`
+`D:\Hernes\hermes-agent\Hermes Vault\Scott\scripts\supabase-keepalive.sh`
+`D:\Hernes\hermes-agent\Hermes Vault\Scott\scripts\supabase-keepalive.bat`
 
 ## Requirements
 
@@ -30,7 +30,7 @@ Example:
 
 ```
 SUPABASE_PROJECT_REF=abcdefghijklmnopqrstu
-SUPABASE_API_KEY=eyJhbG...
+SUPABASE_API_KEY=eyJhbGc...
 ```
 
 ## Setup
@@ -44,7 +44,7 @@ SUPABASE_API_KEY=eyJhbG...
 ## Task Scheduler Setup
 
 - Action: Start a program
-- Program: `scripts/supabase-keepalive.bat`
+- Program: `D:\Hernes\hermes-agent\Hermes Vault\Scott\scripts\supabase-keepalive.bat`
 - Trigger: At startup, repeat every 7 days indefinitely
 - Conditions: Wake the computer to run this task
 - History: enabled
@@ -59,7 +59,7 @@ The script follows redirects and treats HTTP 2xx as active.
 ## Logs
 
 Each run appends a timestamped line to:
-`logs/supabase-keepalive.log`
+`D:\Hernes\hermes-agent\Hermes Vault\Scott\logs\supabase-keepalive.log`
 
 Sample log line:
 `[2026-06-29T12:00:00Z] OK 200`

@@ -3,8 +3,8 @@
 version: 1.0
 author: Scott
 compatible_rulesets:
- - software-development-ruleset-v1
- - saas-development-ruleset-v1
+  - software-development-ruleset-v1
+  - saas-development-ruleset-v1
 
 ## Use Case
 Covers planning, drafting, revising, editing, publishing workflows. Use for documentation, blog posts, marketing copy, release notes, help docs, technical writing, or any authored content. Does NOT apply to code or UI implementation.

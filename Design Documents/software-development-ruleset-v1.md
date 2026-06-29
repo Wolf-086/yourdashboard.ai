@@ -3,8 +3,8 @@
 version: 1.0
 author: Scott
 compatible_rulesets:
- - saas-development-ruleset-v1
- - writing-ruleset-v1
+  - saas-development-ruleset-v1
+  - writing-ruleset-v1
 
 ## Use Case
 Codifies the Software and Skills Development Delegation Planner workflow. Use when building custom software, skills, plugins, or core Hermes features. Does NOT apply to SaaS products (use saas-development-ruleset-v1).

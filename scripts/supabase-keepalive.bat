@@ -6,12 +6,12 @@ set LOG_FILE=%LOG_DIR%\supabase-keepalive.log
 
 if exist "%~dp0.env" (
  for /f "usebackq delims=" %%i in (`"%~dp0.env"`) do (
- set "line=%%i"
- if not "!line:~0,1!"=="#" (
- for /f "tokens=1,* delims==" %%a in ("!line!") do (
- set "%%a=%%b"
- )
- )
+  set "line=%%i"
+  if not "!line:~0,1!"=="#" (
+   for /f "tokens=1,* delims==" %%a in ("!line!") do (
+    set "%%a=%%b"
+   )
+  )
  )
 )
 

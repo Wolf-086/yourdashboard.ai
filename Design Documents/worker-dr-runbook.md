@@ -6,9 +6,9 @@ The worker tier processes asynchronous jobs from a queue. Each worker polls a ta
 
 ```
 [Queue] -> [Worker Pool] -> [Supabase (DB + Storage)]
- |
- v
- [Monitoring / Alerts]
+                |
+                v
+         [Monitoring / Alerts]
 ```
 
 ## Worker Process Restart Steps
@@ -32,8 +32,8 @@ The worker tier processes asynchronous jobs from a queue. Each worker polls a ta
 
 ### Step 3 — Verify Queue Health
 - Confirm the queue has no poison messages that will crash workers on boot:
-  - Check queue depth and DLQ (dead-letter queue) count
-  - If DLQ has entries, acknowledge or move them aside before restarting
+ - Check queue depth and DLQ (dead-letter queue) count
+ - If DLQ has entries, acknowledge or move them aside before restarting
 
 **Executable commands:**
 ```bash
@@ -81,7 +81,7 @@ redis-cli LLEN worker:queue
 
 # Supabase: spot-check a recently completed job via psql
 psql "$SUPABASE_DB_URL" -c \
- "SELECT id, status, created_at, updated_at FROM jobs WHERE status = 'completed' ORDER BY updated_at DESC LIMIT 1;"
+  "SELECT id, status, created_at, updated_at FROM jobs WHERE status = 'completed' ORDER BY updated_at DESC LIMIT 1;"
 
 # Supabase: verify storage file exists for completed job
 supabase storage ls worker-outputs --limit 1 --prefix "$(psql "$SUPABASE_DB_URL" -Atc "SELECT id FROM jobs WHERE status = 'completed' ORDER BY updated_at DESC LIMIT 1;")"
@@ -98,7 +98,7 @@ supabase storage ls worker-outputs --limit 1 --prefix "$(psql "$SUPABASE_DB_URL"
 ### Backup (Daily, Automated)
 1. Use `pg_dump` against the Supabase database:
    ```
-   pg_dump -Fc -f backup_{date}.dump postgres://user:***@host:5432/postgres
+   pg_dump -Fc -f backup_{date}.dump postgres://user:pass@host:5432/postgres
    ```
 2. Copy the dump to object storage (S3 / R2 / equivalent) with 30-day retention
 3. Verify: `pg_restore -l backup_{date}.dump | head`
@@ -108,7 +108,7 @@ supabase storage ls worker-outputs --limit 1 --prefix "$(psql "$SUPABASE_DB_URL"
 2. Stop accepting new traffic (maintenance mode or traffic reroute)
 3. Restore the dump:
    ```
-   pg_restore -d postgres://user:***@host:5432/postgres backup_{date}.dump
+   pg_restore -d postgres://user:pass@host:5432/postgres backup_{date}.dump
    ```
 4. Run sanity queries (row counts on critical tables)
 5. Re-enable traffic and confirm worker processing resumes
@@ -146,11 +146,11 @@ redis-cli LLEN worker:queue
 
 # Error rate from last 100 jobs (Supabase/psql)
 psql "$SUPABASE_DB_URL" -Atc \
- "SELECT ROUND(100.0 * SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) / COUNT(*), 1) FROM jobs ORDER BY created_at DESC LIMIT 100;"
+  "SELECT ROUND(100.0 * SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) / COUNT(*), 1) FROM jobs ORDER BY created_at DESC LIMIT 100;"
 
 # Failed job count in last 100
 psql "$SUPABASE_DB_URL" -Atc \
- "SELECT COUNT(*) FROM (SELECT status FROM jobs ORDER BY created_at DESC LIMIT 100) t WHERE status = 'failed';"
+  "SELECT COUNT(*) FROM (SELECT status FROM jobs ORDER BY created_at DESC LIMIT 100) t WHERE status = 'failed';"
 ```
 
 Healthy steady state:
